@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Control Recargas</title>
+
+<!-- ▼▼▼ ÚNICO DATO QUE DEBES CAMBIAR: el enlace de tu aplicación web de Apps Script (termina en /exec) ▼▼▼ -->
+<meta name="app-url" content="PEGA_AQUI_EL_ENLACE_DE_TU_APP/exec">
+<!-- ▲▲▲ ─────────────────────────────────────────────────────────────────────────────────────────── ▲▲▲ -->
+
+<meta name="theme-color" content="#d4287a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Recargas">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  html,body{margin:0;height:100%;background:#fff6f9}
+  body{padding-top:env(safe-area-inset-top,0px);box-sizing:border-box}
+  .splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    font:600 16px -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#7a6683;text-align:center;padding:24px}
+  .splash img{width:120px;height:120px}
+  .splash a{color:#d4287a;font-weight:800}
+  iframe{position:relative;z-index:1;display:block;width:100%;height:100%;border:0;background:transparent}
+</style>
+</head>
+<body>
+  <div class="splash">
+    <img src="icon-192.png" alt="">
+    <span id="msg">Abriendo Control Recargas…</span>
+    <a id="alt" href="#" target="_blank" rel="noopener" hidden>Si no abre, toca aquí</a>
+  </div>
+  <iframe id="app" title="Control Recargas" allow="clipboard-write"></iframe>
+<script>
+  var url = document.querySelector('meta[name="app-url"]').content.trim();
+  var ok = /^https:\/\/script\.google\.com\/.+\/exec$/.test(url);
+  var alt = document.getElementById('alt');
+  if (!ok) {
+    document.getElementById('msg').textContent = 'Falta configurar el enlace de la app en index.html.';
+  } else {
+    document.getElementById('app').src = url;
+    alt.href = url;
+    setTimeout(function () { alt.hidden = false; }, 8000);
+  }
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+</script>
+</body>
+</html>
